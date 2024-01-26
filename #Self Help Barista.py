@@ -61,6 +61,12 @@ def check_transaction(payment, drink_cost):
         print("You did not have enough money. Here's your money back.")
         return False
 
+def make_coffee(drink, order_ingredients):
+    #reduce resources every order taken
+    for item in order_ingredients:
+        resources[item] -= order_ingredients[item]
+    print(f" Enjoy your {drink}")
+
 
 is_on = True
 
@@ -77,4 +83,5 @@ while is_on is True:
         drink = MENU[customer_choice]
         if check_resources(drink["ingredients"]):
             payment = insert_money()
-            check_transaction(payment, drink['cost'])
+            if check_transaction(payment, drink['cost']):
+                make_coffee(customer_choice, drink["ingredients"])
